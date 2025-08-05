@@ -41,6 +41,48 @@
 				"navigationBarTitleText": "我的",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path": "pages/exercise/exercise",
+			"style": {
+				"navigationBarTitleText": "运动健康",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/exercise/add-goal",
+			"style": {
+				"navigationBarTitleText": "添加运动目标",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/diet/diet",
+			"style": {
+				"navigationBarTitleText": "饮食健康",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/diet/add-diet-goal",
+			"style": {
+				"navigationBarTitleText": "添加饮食目标",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/mental/mental",
+			"style": {
+				"navigationBarTitleText": "心理健康",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/goals/goals",
+			"style": {
+				"navigationBarTitleText": "目标管理",
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"globalStyle": {
@@ -68,9 +110,9 @@
 			},
 			{
 				"pagePath": "pages/achievements/achievements",
-				"text": "奖励",
-				"iconPath": "static/icon/rewards.png",
-				"selectedIconPath": "static/icon/rewards-active.png"
+				"text": "成就",
+				"iconPath": "static/icon/achievement.png",
+				"selectedIconPath": "static/icon/achievement-active.png"
 			},
 			{
 				"pagePath": "pages/profile/profile",

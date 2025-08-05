@@ -144,7 +144,7 @@
       </view>
 
       <!-- 添加运动目标按钮 -->
-      <button class="add-goal-button">
+      <button class="add-goal-button" @click="navigateToAddGoal">
         <text class="plus-icon">+</text>
         <text>添加运动目标</text>
       </button>
@@ -383,6 +383,12 @@ const activeTab = ref('wellness');
 // 切换标签方法
 const switchTab = (tab) => {
   activeTab.value = tab;
+};
+
+const navigateToAddGoal = () => {
+  uni.navigateTo({
+    url: '/pages/exercise/exercise'
+  });
 };
 </script>
 
@@ -682,18 +688,21 @@ const switchTab = (tab) => {
 
 /* 添加目标按钮 */
 .add-goal-button {
-  background-color: #f0f0f2;
-  border: none;
-  border-radius: 20rpx;
-  padding: 30rpx;
+  background-color: #6654e0;
+  color: white;
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 10rpx;
-  width: 100%;
-  margin: 30rpx 0;
-  color: #6654e0;
-  font-weight: bold;
+  justify-content: center;
+  padding: 20rpx 30rpx;
+  border-radius: 50rpx;
+  font-size: 32rpx;
+  margin: 40rpx 20rpx;
+  box-shadow: 0 4rpx 12rpx rgba(102, 84, 224, 0.3);
+}
+
+.add-goal-button .plus-icon {
+  margin-right: 10rpx;
+  font-size: 40rpx;
 }
 
 .add-nutrition {
@@ -704,11 +713,6 @@ const switchTab = (tab) => {
 .add-wellness {
   background-color: #ffe6f0;
   color: #ff69b4;
-}
-
-.plus-icon {
-  font-size: 32rpx;
-  font-weight: bold;
 }
 
 /* 营养部分 */

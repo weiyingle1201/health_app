@@ -76,8 +76,11 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
+import { ElMessage } from 'element-plus';
 
 const router = useRouter();
+const store = useStore();
 
 const username = ref('');
 const password = ref('');
@@ -102,15 +105,11 @@ const handleLogin = async () => {
   
   try {
     isLoading.value = true;
-    // TODO: 调用登录API
-    
-    // 模拟成功登录
-    console.log('登录成功');
-    // 导航到主页
+    await store.dispatch('login', { username: username.value, password: password.value, remember: rememberMe.value });
+    ElMessage.success('登录成功');
     router.push('/');
   } catch (error) {
-    // TODO: 显示错误提示
-    console.log('登录失败', error);
+    ElMessage.error(error.response?.data?.message || '登录失败');
   } finally {
     isLoading.value = false;
   }
@@ -128,6 +127,10 @@ const socialLogin = (platform) => {
 
 const goToRegister = () => {
   router.push('/register');
+};
+
+const goToResetPassword = () => {
+  router.push('/reset-password');
 };
 </script>
 

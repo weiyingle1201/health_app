@@ -16,12 +16,27 @@
           />
         </view>
         <view class="input-group">
-          <text class="icon">📧</text>
+          <text class="icon">📱</text>
+          <input 
+            type="number"
+            v-model="phoneNumber" 
+            placeholder="请输入手机号"
+          />
+        </view>
+        <view class="input-group verification-group">
+          <text class="icon">🔑</text>
           <input 
             type="text" 
-            v-model="email" 
-            placeholder="请输入邮箱"
+            v-model="verificationCode" 
+            placeholder="请输入验证码"
           />
+          <text 
+            class="get-code-btn" 
+            @click="getVerificationCode"
+            :class="{ 'disabled': isCodeSending || countdown > 0 }"
+          >
+            {{ codeButtonText }}
+          </text>
         </view>
         <view class="input-group">
           <text class="icon">🔒</text>
@@ -69,66 +84,129 @@
   </view>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      username: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      showPassword: false,
-      showConfirmPassword: false
-    }
-  },
-  computed: {
-    isFormValid() {
-      return this.username && 
-             this.email && 
-             this.password && 
-             this.confirmPassword && 
-             this.password === this.confirmPassword;
-    }
-  },
-  methods: {
-    handleRegister() {
-      if (!this.isFormValid) return;
-      
-      // 检查密码是否匹配
-      if (this.password !== this.confirmPassword) {
-        uni.showToast({
-          title: '两次输入的密码不一致',
-          icon: 'none'
-        });
-        return;
-      }
-      
-      // TODO: 实现实际的注册逻辑
-      console.log('注册信息：', {
-        username: this.username,
-        email: this.email,
-        password: this.password
+<script setup>
+import { ref, computed } from 'vue'
+import request from '@/utils/request'
+
+const username = ref('')
+const phoneNumber = ref('')
+const password = ref('')
+const confirmPassword = ref('')
+const verificationCode = ref('')
+const showPassword = ref(false)
+const showConfirmPassword = ref(false)
+const isCodeSending = ref(false)
+const countdown = ref(0)
+
+const codeButtonText = computed(() => {
+  if (countdown.value > 0) {
+    return `${countdown.value}秒后重试`
+  }
+  return '获取验证码'
+})
+
+const isFormValid = computed(() => {
+  return username.value && 
+         phoneNumber.value &&
+         verificationCode.value &&
+         password.value && 
+         confirmPassword.value && 
+         password.value === confirmPassword.value;
+})
+
+const getVerificationCode = async () => {
+  if (isCodeSending.value || countdown.value > 0 || !phoneNumber.value) {
+    if (!phoneNumber.value) {
+      uni.showToast({
+        title: '请输入手机号',
+        icon: 'none'
       });
-      
-      // 模拟注册成功
+    }
+    return;
+  }
+  
+  try {
+    isCodeSending.value = true
+    const response = await request({
+      url: '/auth/verification-code',
+      method: 'POST',
+      data: {
+        phone: phoneNumber.value
+      }
+    })
+    
+    if (response.statusCode === 200) {
+      uni.showToast({
+        title: '验证码已发送',
+        icon: 'success'
+      })
+      countdown.value = 60
+      const timer = setInterval(() => {
+        countdown.value--
+        if (countdown.value <= 0) {
+          clearInterval(timer)
+        }
+      }, 1000)
+    } else {
+      throw new Error(response.data.message || '获取验证码失败')
+    }
+  } catch (error) {
+    uni.showToast({
+      title: error.message || '获取验证码失败',
+      icon: 'none'
+    })
+  } finally {
+    isCodeSending.value = false
+  }
+}
+
+const handleRegister = async () => {
+  if (!isFormValid.value) return;
+  
+  if (password.value !== confirmPassword.value) {
+    uni.showToast({
+      title: '两次输入的密码不一致',
+      icon: 'none'
+    });
+    return;
+  }
+  
+  try {
+    const response = await request({
+      url: '/auth/register',
+      method: 'POST',
+      data: {
+        username: username.value,
+        phone: phoneNumber.value,
+        password: password.value,
+        verificationCode: verificationCode.value
+      }
+    });
+
+    if (response.statusCode === 200 || response.statusCode === 201) {
       uni.showToast({
         title: '注册成功',
         icon: 'success',
         duration: 2000,
-        success: () => {
-          setTimeout(() => {
-            uni.redirectTo({
-              url: '/pages/login/login'
-            });
-          }, 2000);
-        }
       });
-    },
-    
-    toLogin() {
-      uni.navigateBack();
+      setTimeout(() => {
+        uni.redirectTo({
+          url: '/pages/login/login'
+        });
+      }, 1500);
+    } else {
+      throw new Error(response.data.message || '注册失败');
     }
+  } catch (error) {
+    uni.showToast({
+      title: error.message || '注册失败，请稍后重试',
+      icon: 'none'
+    });
   }
+}
+
+const toLogin = () => {
+  uni.navigateBack();
 }
 </script>
 
@@ -206,6 +284,30 @@ export default {
   font-size: 36rpx;
 }
 
+.verification-group {
+  /* 与其他input-group保持一致 */
+}
+
+.get-code-btn {
+  position: absolute;
+  right: 10rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 26rpx;
+  color: #6654e0;
+  padding: 10rpx 15rpx;
+  border: 2rpx solid #6654e0;
+  border-radius: 8rpx;
+  background-color: white;
+  z-index: 10;
+}
+
+.get-code-btn.disabled {
+  color: #999;
+  border-color: #999;
+  background-color: #f5f5f5;
+}
+
 .register-btn {
   width: 100%;
   height: 90rpx;
@@ -233,4 +335,4 @@ export default {
   color: #6654e0;
   font-weight: bold;
 }
-</style> 
+</style>
