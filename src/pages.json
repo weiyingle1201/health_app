@@ -1,5 +1,5 @@
 {
-	"pages": [ 
+	"pages": [
 		{
 			"path": "pages/login/login",
 			"style": {
@@ -39,6 +39,13 @@
 			"path": "pages/profile/profile",
 			"style": {
 				"navigationBarTitleText": "我的",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/profile/edit",
+			"style": {
+				"navigationBarTitleText": "个人信息" ,
 				"navigationStyle": "custom"
 			}
 		},
@@ -91,35 +98,31 @@
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
-	"tabBar": {
-		"color": "#7A7E83",
-		"selectedColor": "#6654e0",
-		"backgroundColor": "#ffffff",
-		"list": [
-			{
-				"pagePath": "pages/index/index",
-				"text": "首页",
-				"iconPath": "static/icon/home.png",
-				"selectedIconPath": "static/icon/home-active.png"
-			},
-			{
-				"pagePath": "pages/progress/progress",
-				"text": "进度",
-				"iconPath": "static/icon/progress.png",
-				"selectedIconPath": "static/icon/progress-active.png"
-			},
-			{
-				"pagePath": "pages/achievements/achievements",
-				"text": "成就",
-				"iconPath": "static/icon/achievement.png",
-				"selectedIconPath": "static/icon/achievement-active.png"
-			},
-			{
-				"pagePath": "pages/profile/profile",
-				"text": "我的",
-				"iconPath": "static/icon/profile.png",
-				"selectedIconPath": "static/icon/profile-active.png"
-			}
-		]
-	}
+    "tabBar": {
+        "color": "#7A7E83",
+        "selectedColor": "#6654e0",
+        "backgroundColor": "#ffffff",
+        "height": "60px",
+        "fontSize": "18px",
+        "iconWidth": "0",
+        "spacing": "5px",
+        "list": [
+            {
+                "pagePath": "pages/index/index",
+                "text": "首页",
+            },
+            {
+                "pagePath": "pages/progress/progress",
+                "text": "目标",
+            },
+            {
+                "pagePath": "pages/achievements/achievements",
+                "text": "成就",
+            },
+            {
+                "pagePath": "pages/profile/profile",
+                "text": "我的",
+            }
+        ]
+    }
 }

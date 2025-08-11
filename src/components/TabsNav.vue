@@ -1,19 +1,15 @@
 <template>
   <div class="tabs-nav">
     <router-link to="/" class="tab-item">
-      <div class="tab-icon">🏠</div>
       <div class="tab-label">首页</div>
     </router-link>
     <router-link to="/progress" class="tab-item">
-      <div class="tab-icon">📊</div>
       <div class="tab-label">进度</div>
     </router-link>
     <router-link to="/achievements" class="tab-item">
-      <div class="tab-icon">🏆</div>
       <div class="tab-label">成就</div>
     </router-link>
     <router-link to="/profile" class="tab-item">
-      <div class="tab-icon">👤</div>
       <div class="tab-label">我的</div>
     </router-link>
   </div>

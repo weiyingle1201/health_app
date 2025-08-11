@@ -3,15 +3,34 @@
     <view class="header">
       <text class="header-title">个人中心</text>
     </view>
-    
+
     <view class="profile-content">
-      <view class="user-info">
-        <view class="avatar">
-          <image src="https://placekitten.com/100/100" mode="aspectFill"></image>
+      <view class="user-info-card" @click="goToEditPage">
+        <view class="avatar-wrapper">
+          <image :src="userInfo.avatar" mode="aspectFill"></image>
         </view>
-        <view class="info">
-          <text class="username">用户名</text>
-          <text class="user-level">健康达人 Lv.3</text>
+
+        <view class="info-wrapper">
+          <view class="username">{{ userInfo.username }}</view>
+
+          <view class="details-wrapper">
+            <view class="detail-item">
+              <text>{{ userInfo.gender }}</text>
+            </view>
+            <view class="detail-item">
+              <text>{{ userInfo.height }}cm</text>
+            </view>
+            <view class="detail-item">
+              <text>{{ userInfo.weight }}kg</text>
+            </view>
+            <view class="detail-item">
+              <text>{{ userInfo.age }}岁</text>
+            </view>
+          </view>
+        </view>
+
+        <view class="arrow-wrapper">
+          <text class="arrow">›</text>
         </view>
       </view>
 
@@ -21,19 +40,19 @@
           <text class="menu-text">数据统计</text>
           <text class="menu-arrow">›</text>
         </view>
-        
+
         <view class="menu-item" @click="navigateTo('/pages/settings/settings')">
           <text class="menu-icon">⚙️</text>
           <text class="menu-text">设置</text>
           <text class="menu-arrow">›</text>
         </view>
-        
+
         <view class="menu-item" @click="navigateTo('/pages/help/help')">
           <text class="menu-icon">❓</text>
           <text class="menu-text">帮助与反馈</text>
           <text class="menu-arrow">›</text>
         </view>
-        
+
         <view class="menu-item" @click="navigateTo('/pages/about/about')">
           <text class="menu-icon">ℹ️</text>
           <text class="menu-text">关于我们</text>
@@ -49,12 +68,28 @@
 <script>
 export default {
   data() {
-    return {}
+    return {
+      userInfo: {
+        username: '用户1201',
+        avatar: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+        gender: '女',
+        height: 168,
+        weight: 52,
+        age: 21
+      }
+    }
   },
   methods: {
     navigateTo(url) {
       uni.navigateTo({
         url
+      });
+    },
+    goToEditPage() {
+      console.log('准备跳转到编辑页...');
+      uni.navigateTo({
+        // 请确保你的 pages.json 中有这个路径
+        url: '/pages/profile/edit'
       });
     },
     logout() {
@@ -90,43 +125,71 @@ export default {
   font-weight: bold;
 }
 
-.user-info {
-  background: white;
-  border-radius: 24rpx;
-  padding: 40rpx;
-  margin-bottom: 40rpx;
-  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.1);
-  display: flex;
-  align-items: center;
+.user-info-card {
+	display: flex;
+	align-items: center; /* 垂直居中对齐 */
+	background-color: #fff;
+	padding: 30rpx;
+	border-radius: 24rpx;
+	box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.05);
+	margin-bottom: 20rpx; /* 和其他元素的间距 */
 }
 
-.avatar {
-  margin-right: 40rpx;
+.avatar-wrapper {
+	margin-right: 30rpx; /* 头像和右侧信息的间距 */
 }
 
-.avatar image {
-  width: 160rpx;
-  height: 160rpx;
-  border-radius: 80rpx;
+.avatar-wrapper image {
+	width: 120rpx;
+	height: 120rpx;
+	border-radius: 50%;
+}
+
+.info-wrapper {
+	flex: 1;
+	display: flex;
+	flex-direction: column; /* 内部元素（用户名、详情）垂直排列 */
+	justify-content: center; /* 垂直方向居中 */
 }
 
 .username {
-  font-size: 40rpx;
-  font-weight: bold;
-  display: block;
-  margin-bottom: 10rpx;
+	font-size: 32rpx;
+	font-weight: bold;
+	color: #333;
+	margin-bottom: 15rpx; /* 用户名和下方详情的间距 */
 }
 
-.user-level {
-  color: #666;
-  font-size: 28rpx;
+/* 详情（性别、身高...）的容器，也设置为flex布局 */
+.details-wrapper {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap; /* 如果屏幕太窄，允许换行 */
+}
+
+.detail-item {
+	font-size: 26rpx;
+	color: #666;
+	display: flex; /* 让分隔线可以垂直居中 */
+	align-items: center;
+}
+
+/* 使用 ::after 伪元素来创建分隔线，比在模板里写 | 更优雅 */
+.detail-item:not(:last-child)::after {
+	content: '|';
+	color: #e0e0e0;
+	margin: 0 12rpx; /* 分隔线的左右间距 */
+}
+
+.arrow-wrapper .arrow {
+	color: #ccc;
+	font-size: 40rpx;
 }
 
 .menu-list {
   background: white;
   border-radius: 24rpx;
   margin-bottom: 60rpx;
-  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.1);
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
@@ -167,4 +230,4 @@ export default {
   font-size: 32rpx;
   font-weight: bold;
 }
-</style> 
+</style>
