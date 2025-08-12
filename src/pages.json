@@ -50,6 +50,27 @@
 			}
 		},
 		{
+			"path": "pages/profile/healthInfo",
+			"style": {
+				"navigationBarTitleText": "健康信息" ,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/stats/stats",
+			"style": {
+				"navigationBarTitleText": "数据统计" ,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/profile/help",
+			"style": {
+				"navigationBarTitleText": "帮助与反馈" ,
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path": "pages/exercise/exercise",
 			"style": {
 				"navigationBarTitleText": "运动健康",
@@ -80,7 +101,7 @@
 		{
 			"path": "pages/mental/mental",
 			"style": {
-				"navigationBarTitleText": "心理健康",
+				"navigationBarTitleText": "添加元气目标",
 				"navigationStyle": "custom"
 			}
 		},
@@ -112,8 +133,8 @@
                 "text": "首页",
             },
             {
-                "pagePath": "pages/progress/progress",
-                "text": "目标",
+                "pagePath": "pages/stats/stats",
+                "text": "数据",
             },
             {
                 "pagePath": "pages/achievements/achievements",

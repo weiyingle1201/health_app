@@ -15,24 +15,24 @@
     <!-- 健康旅程卡片 -->
     <view class="health-journey-card">
       <text class="card-title">你的健康旅程</text>
-      
+
       <view class="stats-container">
         <view class="stat-item">
           <text class="stat-value">87%</text>
           <text class="stat-label">完成度</text>
         </view>
-        
+
         <view class="stat-item">
           <text class="stat-value">24</text>
           <text class="stat-label">连续天数</text>
         </view>
-        
+
         <view class="stat-item">
           <text class="stat-value">12</text>
           <text class="stat-label">目标数</text>
         </view>
       </view>
-      
+
       <view class="progress-bar">
         <view class="progress-fill" style="width: 87%;"></view>
       </view>
@@ -47,7 +47,7 @@
         <text>饮食</text>
       </view>
       <view class="tab-item" :class="{ active: activeTab === 'wellness' }" @click="switchTab('wellness')">
-        <text>健康</text>
+        <text>元气</text>
       </view>
     </view>
 
@@ -71,7 +71,7 @@
             </view>
           </view>
         </view>
-        
+
         <view class="stats-card heart-rate">
           <text class="stats-icon">❤️</text>
           <view class="stats-content">
@@ -170,7 +170,7 @@
             <view class="nutrition-progress-fill" style="width: 72%;"></view>
           </view>
         </view>
-        
+
         <view class="nutrition-card">
           <text class="nutrition-label">蛋白质</text>
           <view class="nutrition-value-container">
@@ -181,7 +181,7 @@
             <view class="nutrition-progress-fill" style="width: 70%;"></view>
           </view>
         </view>
-        
+
         <view class="nutrition-card">
           <text class="nutrition-label">水分</text>
           <view class="nutrition-value-container">
@@ -256,7 +256,7 @@
       </view>
 
       <!-- 添加营养目标按钮 -->
-      <button class="add-goal-button add-nutrition">
+      <button class="add-goal-button add-nutrition" @click="navigateToAddNutrition">
         <text class="plus-icon">+</text>
         <text>添加营养目标</text>
       </button>
@@ -283,21 +283,21 @@
           </view>
           <text class="mood-label">压力大</text>
         </view>
-        
+
         <view class="mood-option">
           <view class="mood-emoji neutral">
             <text>😐</text>
           </view>
           <text class="mood-label">一般</text>
         </view>
-        
+
         <view class="mood-option">
           <view class="mood-emoji good">
             <text>😊</text>
           </view>
           <text class="mood-label">不错</text>
         </view>
-        
+
         <view class="mood-option">
           <view class="mood-emoji great">
             <text>😄</text>
@@ -366,7 +366,7 @@
       </view>
 
       <!-- 添加健康目标按钮 -->
-      <button class="add-goal-button add-wellness">
+      <button class="add-goal-button add-wellness" @click="navigateToAddMental">
         <text class="plus-icon">+</text>
         <text>添加健康目标</text>
       </button>
@@ -388,6 +388,18 @@ const switchTab = (tab) => {
 const navigateToAddGoal = () => {
   uni.navigateTo({
     url: '/pages/exercise/exercise'
+  });
+};
+
+const navigateToAddNutrition = () => {
+  uni.navigateTo({
+    url: '/pages/diet/diet' 
+  });
+};
+
+const navigateToAddMental = () => {
+  uni.navigateTo({
+    url: '/pages/mental/mental' 
   });
 };
 </script>
@@ -648,7 +660,13 @@ const navigateToAddGoal = () => {
   color: #6654e0;
 }
 
-.log-button, .complete-button, .reset-button, .add-button, .sleep-log, .meditation-button, .reading-log {
+.log-button,
+.complete-button,
+.reset-button,
+.add-button,
+.sleep-log,
+.meditation-button,
+.reading-log {
   background-color: #f0f0f2;
   color: #6654e0;
   font-size: 24rpx;
@@ -688,7 +706,7 @@ const navigateToAddGoal = () => {
 
 /* 添加目标按钮 */
 .add-goal-button {
-  background-color: #6654e0;
+  background-color: #6050c2;
   color: white;
   display: flex;
   align-items: center;

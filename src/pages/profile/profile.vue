@@ -35,19 +35,13 @@
       </view>
 
       <view class="menu-list">
-        <view class="menu-item" @click="navigateTo('/pages/stats/stats')">
-          <text class="menu-icon">📊</text>
-          <text class="menu-text">数据统计</text>
+        <view class="menu-item" @click="navigateTo('/pages/profile/healthInfo')">
+          <text class="menu-icon">👤</text>
+          <text class="menu-text">健康信息</text>
           <text class="menu-arrow">›</text>
         </view>
 
-        <view class="menu-item" @click="navigateTo('/pages/settings/settings')">
-          <text class="menu-icon">⚙️</text>
-          <text class="menu-text">设置</text>
-          <text class="menu-arrow">›</text>
-        </view>
-
-        <view class="menu-item" @click="navigateTo('/pages/help/help')">
+        <view class="menu-item" @click="navigateTo('/pages/profile/help')">
           <text class="menu-icon">❓</text>
           <text class="menu-text">帮助与反馈</text>
           <text class="menu-arrow">›</text>
@@ -56,6 +50,12 @@
         <view class="menu-item" @click="navigateTo('/pages/about/about')">
           <text class="menu-icon">ℹ️</text>
           <text class="menu-text">关于我们</text>
+          <text class="menu-arrow">›</text>
+        </view>
+
+        <view class="menu-item" @click="navigateTo('/pages/settings/settings')">
+          <text class="menu-icon">⚙️</text>
+          <text class="menu-text">设置</text>
           <text class="menu-arrow">›</text>
         </view>
       </view>

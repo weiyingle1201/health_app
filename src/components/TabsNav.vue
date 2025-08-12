@@ -4,7 +4,7 @@
       <div class="tab-label">首页</div>
     </router-link>
     <router-link to="/progress" class="tab-item">
-      <div class="tab-label">进度</div>
+      <div class="tab-label">数据</div>
     </router-link>
     <router-link to="/achievements" class="tab-item">
       <div class="tab-label">成就</div>
